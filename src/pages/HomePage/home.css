@@ -1,0 +1,9 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.space {
+  margin-top: 32px;
+}

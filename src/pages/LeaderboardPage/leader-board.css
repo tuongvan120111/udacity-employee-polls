@@ -1,0 +1,29 @@
+.leader-board {
+  margin: 30px 25%;
+  border: 1px solid #a2a195;
+  border-radius: 5px;
+}
+
+.user {
+  display: flex;
+}
+
+.user img {
+  margin-right: 8px;
+}
+
+.user-field {
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.name {
+  font-size: 12px;
+  align-self: flex-start;
+}

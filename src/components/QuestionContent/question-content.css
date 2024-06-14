@@ -1,0 +1,25 @@
+.question {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  border: 1px solid #c0c0c0;
+  gap: 5px;
+  border-radius: 5px;
+}
+
+.question-infor {
+  border-bottom: 1px solid #dddddd;
+  padding: 10px 10px 32px;
+}
+
+.question-owner {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.question-show {
+  margin: 10px;
+  color: #33cc33;
+  border-color: #33cc33;
+}

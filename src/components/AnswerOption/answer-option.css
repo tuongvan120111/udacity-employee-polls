@@ -1,0 +1,18 @@
+.answer {
+  border-radius: 5px;
+  border: 1px solid;
+  /* padding: 15px; */
+  width: 600px;
+}
+
+.option {
+  padding: 10px;
+}
+
+.selection {
+  width: 100%;
+  border-radius: unset;
+  background-color: #669fee;
+  color: #fffbf5;
+  border: unset;
+}

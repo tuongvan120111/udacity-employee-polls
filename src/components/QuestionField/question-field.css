@@ -1,0 +1,17 @@
+.question-session {
+  border: 1px solid #c0c0c0;
+  margin-bottom: 42px;
+}
+
+.question-title {
+  border: 1px solid #c0c0c0;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.question-place {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+}

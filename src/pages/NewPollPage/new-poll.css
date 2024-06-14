@@ -1,0 +1,18 @@
+.new-poll h1 {
+  margin-bottom: 8px;
+}
+
+.description-poll {
+  color: #a2a195;
+}
+
+.option-chosen {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.field-space {
+  margin-bottom: 18px;
+  height: 64px;
+}
