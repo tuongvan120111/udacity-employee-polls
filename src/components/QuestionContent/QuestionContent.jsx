@@ -3,12 +3,13 @@ import "./question-content.css";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 
-export default function QuestionContent({ owner, timeCreated }) {
+export default function QuestionContent({ owner, timeCreated, id }) {
   const navigate = useNavigate();
 
   const handleShowPoll = () => {
-    navigate("/questions/1");
+    navigate("/questions/" + id);
   };
+
   return (
     <div className="question">
       <div className="question-infor">

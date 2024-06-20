@@ -16,13 +16,13 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "home",
+        path: "questions",
         element: <HomePage />,
       },
       { path: "leaderboard", element: <LeaderboardPage /> },
-      { path: "login", element: <LoginPage /> },
       { path: "new-poll", element: <NewPollPage /> },
       { path: "questions/:question_id", element: <PollPage /> },
     ],
   },
+  { path: "login", element: <LoginPage /> },
 ]);

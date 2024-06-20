@@ -3,17 +3,17 @@ import "./question-field.css";
 import QuestionContent from "../QuestionContent/QuestionContent";
 
 export default function QuestionField({ title, questions = [] }) {
-  const [asks, setAsks] = useState(questions);
   return (
     <div className="question-session">
       <div className="question-title">{title}</div>
       <div className="question-place">
-        {asks.map((item, index) => {
+        {questions.map((item, index) => {
           return (
             <QuestionContent
+              id={item.id}
               owner={item.owner}
               timeCreated={item.timeCreated}
-              key={index}
+              key={item.id}
             />
           );
         })}

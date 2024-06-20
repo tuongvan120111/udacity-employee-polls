@@ -1,27 +1,23 @@
-import { Button } from "antd";
 import React, { useState } from "react";
 import "./home.css";
 import QuestionField from "../../components/QuestionField/QuestionField";
+import { selectHomeState } from "../../utils/selection";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getQuestion } from "../../slice/employee-poll-slice";
 
 export default function HomePage() {
-  const [tasks, setTasks] = useState({
-    new: [
-      { owner: "sarahedo", timeCreated: "4:11 PM | 11/23/2024" },
-      { owner: "sarahedo", timeCreated: "4:11 PM | 11/23/2024" },
-      { owner: "sarahedo", timeCreated: "4:11 PM | 11/23/2024" },
-      { owner: "sarahedo", timeCreated: "4:11 PM | 11/23/2024" },
-      { owner: "sarahedo", timeCreated: "4:11 PM | 11/23/2024" },
-      { owner: "sarahedo", timeCreated: "4:11 PM | 11/23/2024" },
-      { owner: "sarahedo", timeCreated: "4:11 PM | 11/23/2024" },
-      { owner: "sarahedo", timeCreated: "4:11 PM | 11/23/2024" },
-      { owner: "sarahedo", timeCreated: "4:11 PM | 11/23/2024" },
-    ],
-    done: [{ owner: "sarahedo", timeCreated: "4:11 PM | 11/23/2024" }],
-  });
+  const homeState = useSelector(selectHomeState);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getQuestion());
+  }, []);
+
   return (
     <div className="home-page">
-      <QuestionField title={"New Questions"} questions={tasks.new} />
-      <QuestionField title={"Done"} questions={tasks.done} />
+      <QuestionField title={"New Questions"} questions={homeState.new} />
+      <QuestionField title={"Done"} questions={homeState.done} />
     </div>
   );
 }

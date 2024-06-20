@@ -1,29 +1,18 @@
 import { Table } from "antd";
-import React from "react";
-import { IMAGES } from "../../constants/imgages";
+import React, { useEffect } from "react";
 import "./leader-board.css";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUsers } from "../../utils/selection";
+import { getLeaderBoardData } from "../../utils/get-leader-board-data";
+import { startLoading, stopLoading } from "../../slice/employee-poll-slice";
+import { useLoadingInitial } from "../../hook/stopLoadingHook";
 
 export default function LeaderboardPage() {
-  const dataSource = [
-    {
-      img: IMAGES.GREY_BOY,
-      name: "Sarah Edo",
-      user: "sarahedo",
-      id: "aaaa",
-      answered: 4,
-      created: 5,
-      key: "aaaa",
-    },
-    {
-      img: IMAGES.GREY_BOY,
-      name: "Sarah Edo",
-      user: "sarahedo",
-      id: "aaaa",
-      key: "aaaa2",
-      answered: 4,
-      created: 5,
-    },
-  ];
+  const user = useSelector(selectUsers);
+  const leaderBoard = getLeaderBoardData(user);
+  const dispatch = useDispatch();
+
+  useLoadingInitial(dispatch);
 
   const columns = [
     {
@@ -56,7 +45,7 @@ export default function LeaderboardPage() {
 
   return (
     <div className="leader-board">
-      <Table dataSource={dataSource} columns={columns} pagination={false} />
+      <Table dataSource={leaderBoard} columns={columns} pagination={false} />
     </div>
   );
 }

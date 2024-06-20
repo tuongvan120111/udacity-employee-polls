@@ -16,3 +16,7 @@
   color: #fffbf5;
   border: unset;
 }
+
+.voted:disabled {
+  background-color: #a0b8da;
+}

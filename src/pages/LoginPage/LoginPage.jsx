@@ -1,11 +1,41 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { IMAGES } from "../../constants/imgages";
 import { Button, Form, Input } from "antd";
 import "./login-page.css";
+import { useState } from "react";
+import { _getUsers } from "../../_DATA";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const [users, setUser] = useState({});
+  const [showMsgErr, setShowMsgErr] = useState(false);
+  const navigate = useNavigate();
+
+  const getUser = useCallback(async () => {
+    const userRes = await _getUsers();
+    setUser(userRes);
+  }, []);
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const handleLogin = (values) => {
+    const { password, username } = values;
+
+    const userLogin = users[username];
+    if (!userLogin) {
+      setShowMsgErr(true);
+      return;
+    }
+
+    const { password: passwdUser } = userLogin;
+    if (password !== passwdUser) {
+      setShowMsgErr(true);
+      return;
+    }
+
+    navigate("/", { state: { users, userId: username } });
   };
 
   return (
@@ -14,7 +44,10 @@ export default function LoginPage() {
       <img src={IMAGES.LOGIN} alt="" width={400} />
       <div className="login-space">
         <h2>Log In</h2>
-        <Form name="basic" style={{ width: 600 }} onFinish={onFinish}>
+        <div className="error">
+          {showMsgErr && "Username or Password is not correct!"}
+        </div>
+        <Form name="basic" style={{ width: 600 }} onFinish={handleLogin}>
           <Form.Item
             label="Username"
             name="username"

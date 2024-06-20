@@ -2,11 +2,24 @@ import { Button, Form, Input } from "antd";
 import React from "react";
 import { useState } from "react";
 import "./new-poll.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useLoadingInitial } from "../../hook/stopLoadingHook";
+import { saveQuestion } from "../../slice/employee-poll-slice";
+import { selectUserId } from "../../utils/selection";
 
 export default function NewPollPage() {
+  const dispatch = useDispatch();
+  useLoadingInitial(dispatch);
   const [ableSubmited, setAbleSubmited] = useState(false);
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const userId = useSelector(selectUserId);
+  const onFinish = ({ firstOption, secondOption }) => {
+    dispatch(
+      saveQuestion({
+        optionOneText: firstOption,
+        optionTwoText: secondOption,
+        author: userId,
+      })
+    );
   };
 
   const handleValueChange = (_, allValues) => {
