@@ -1,11 +1,10 @@
 import { Table } from "antd";
-import React, { useEffect } from "react";
-import "./leader-board.css";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUsers } from "../../utils/selection";
 import { getLeaderBoardData } from "../../utils/get-leader-board-data";
-import { startLoading, stopLoading } from "../../slice/employee-poll-slice";
 import { useLoadingInitial } from "../../hook/stopLoadingHook";
+import "./leader-board.css";
 
 export default function LeaderboardPage() {
   const user = useSelector(selectUsers);

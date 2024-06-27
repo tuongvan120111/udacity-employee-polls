@@ -1,17 +1,19 @@
-import { Menu, Space } from "antd";
+import { Menu } from "antd";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./headers.css";
 import { IMAGES } from "../../constants/imgages";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../slice/employee-poll-slice";
-// import avatar from "../../../public/avatar/avatar-svgrepo-com.svg";
+import { selectCurUser } from "../../utils/selection";
 
 export default function Headers({ children }) {
   const navigate = useNavigate();
   const history = useLocation();
 
   const [tab, setTab] = useState("/questions");
+
+  const currenUser = useSelector(selectCurUser);
 
   useEffect(() => {
     const isHomePage = history.pathname === "/";
@@ -59,8 +61,8 @@ export default function Headers({ children }) {
 
         <div className="header-right">
           <div className="user-infor">
-            <img src={IMAGES.RED_MAN} alt="" height={35} />
-            <label htmlFor="">Mic</label>
+            <img src={currenUser.avatarURL} alt="" height={35} />
+            <label htmlFor="">{currenUser.id}</label>
           </div>
 
           <div className="logout" onClick={handleLogout}>
