@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { IMAGES } from "../../constants/imgages";
 import { Button, Form, Input } from "antd";
-import "./login-page.css";
-import { useState } from "react";
+// import "./login-page.css";
 import { _getUsers } from "../../_DATA";
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +12,7 @@ export default function LoginPage() {
 
   const getUser = useCallback(async () => {
     const userRes = await _getUsers();
+    console.log("userRes: ", userRes);
     setUser(userRes);
   }, []);
 
