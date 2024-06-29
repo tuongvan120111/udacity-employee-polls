@@ -5,6 +5,7 @@ module.exports = {
   },
   transform: {
     "^.+\\.jsx?$": "babel-jest",
+    "^.+\\.(js|jsx)$": "babel-jest",
     "^.+\\.(css|scss|sass)$": "jest-transform-stub",
     "^.+\\.(jpg|jpeg|png|gif|webp|svg)$": "jest-transform-stub",
   },
@@ -13,4 +14,5 @@ module.exports = {
   },
   collectCoverageFrom: ["<rootDir>/src/**/*.js"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  transformIgnorePatterns: ["/node_modules/(?!antd)"],
 };
