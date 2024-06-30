@@ -16,3 +16,13 @@
   margin-bottom: 18px;
   height: 64px;
 }
+
+.ant-form-item-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ant-form-item-control {
+  width: 100%;
+}

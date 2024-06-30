@@ -61,8 +61,8 @@ export default function Headers({ children }) {
 
         <div className="header-right">
           <div className="user-infor">
-            <img src={currenUser.avatarURL} alt="" height={35} />
-            <label htmlFor="">{currenUser.id}</label>
+            <img src={currenUser?.avatarURL} alt="" height={35} />
+            <label htmlFor="">{currenUser?.id}</label>
           </div>
 
           <div className="logout" onClick={handleLogout}>
