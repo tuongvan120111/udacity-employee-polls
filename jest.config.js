@@ -3,9 +3,11 @@ module.exports = {
   testEnvironmentOptions: {
     browsers: ["chrome", "firefox", "safari"],
   },
+  moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
   transform: {
     "^.+\\.jsx?$": "babel-jest",
     "^.+\\.(js|jsx)$": "babel-jest",
+    "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
     "^.+\\.(css|scss|sass)$": "jest-transform-stub",
     "^.+\\.(jpg|jpeg|png|gif|webp|svg)$": "jest-transform-stub",
   },

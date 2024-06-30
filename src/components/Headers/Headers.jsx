@@ -2,7 +2,6 @@ import { Menu } from "antd";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./headers.css";
-import { IMAGES } from "../../constants/imgages";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../slice/employee-poll-slice";
 import { selectCurUser } from "../../utils/selection";

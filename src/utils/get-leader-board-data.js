@@ -1,4 +1,8 @@
 export const getLeaderBoardData = (req) => {
+  if (!req || typeof req === "string") {
+    return [];
+  }
+
   const users = Object.values(req);
   return users.map((usr) => {
     const answers = Object.values(usr.answers);

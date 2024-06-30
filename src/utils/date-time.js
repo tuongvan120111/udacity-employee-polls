@@ -4,6 +4,11 @@ export const convertDate = (date) => {
   }
 
   const newDate = new Date(date);
+  const isDateValid = !isNaN(newDate);
+  if (!isDateValid) {
+    return "";
+  }
+
   const dateTime = newDate.toLocaleTimeString();
   const [time, meridiem] = dateTime.split(" ");
   const [hour, min] = time.split(":");
