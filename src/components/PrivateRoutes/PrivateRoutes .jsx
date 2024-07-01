@@ -13,7 +13,7 @@ const PrivateRoutes = memo(() => {
   const loginState = getLoginState(location);
   const dispatch = useDispatch();
   const userIdState = useSelector(selectUserId);
-  const selectLoading = (state) => state.isLoading;
+  const selectLoading = (state) => state?.isLoading || false;
   const isLoading = useSelector(selectLoading);
   const [isLogin] = useState(!!loginState?.userId || !!userIdState);
   useEffect(() => {

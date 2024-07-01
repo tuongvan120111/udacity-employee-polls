@@ -1,12 +1,21 @@
 export const selectUsers = (state) => state.user;
 export const selectHomeState = (state) => state.homeState;
-export const selectUserId = (state) => state.userId;
+export const selectUserId = (state) => state.userId || "";
 export const selectShowMsgErr = (state) => state.isShowMsgErr;
 export const selectQuestion = (state, id) => state.question[id];
 export const selectShowPopup = (state) => state.isShowPopup;
 export const selectCurUser = (state) => {
-  const userId = state.userId;
-  return state.user[userId];
+  const userId = state?.userId;
+  if (!state?.user) {
+    return undefined;
+  }
+  const user = state?.user[userId];
+
+  if (user) {
+    return user;
+  } else {
+    return undefined;
+  }
 };
 export const selectPollVoted = (state, id) => {
   const homePage = state.homeState;
