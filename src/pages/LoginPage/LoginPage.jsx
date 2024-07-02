@@ -12,7 +12,6 @@ export default function LoginPage() {
 
   const getUser = useCallback(async () => {
     const userRes = await _getUsers();
-    console.log("userRes: ", userRes);
     setUser(userRes);
   }, []);
 

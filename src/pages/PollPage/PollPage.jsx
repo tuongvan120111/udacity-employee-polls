@@ -8,6 +8,7 @@ import {
   selectCurUser,
   selectPollVoted,
   selectQuestion,
+  selectUsers,
   selectVoteOpt,
 } from "../../utils/selection";
 import { saveAnswer } from "../../slice/employee-poll-slice";
@@ -15,9 +16,10 @@ import { saveAnswer } from "../../slice/employee-poll-slice";
 export default function PollPage() {
   const dispatch = useDispatch();
   const { question_id } = useParams();
-  const { optionOne, optionTwo } = useSelector((state) =>
-    selectQuestion(state, question_id)
-  );
+  const question = useSelector((state) => selectQuestion(state, question_id));
+
+  const { optionOne, optionTwo } = question;
+  const votes = optionOne.votes.concat(optionTwo.votes);
 
   const pollVoted = useSelector((state) => selectPollVoted(state, question_id));
   const optVoted = useSelector((state) =>
@@ -35,6 +37,17 @@ export default function PollPage() {
     );
   };
 
+  let optionVote = "";
+
+  if (pollVoted) {
+    optionVote = optVoted === "optionOne" ? "first" : "second";
+  }
+
+  const users = useSelector(selectUsers);
+  const firstVotePercent = Math.round(
+    (optionOne.votes.length / votes.length) * 100
+  );
+
   return (
     <div className="poll-page">
       <h1>Poll by {user.name}</h1>
@@ -48,6 +61,23 @@ export default function PollPage() {
           disabled={pollVoted}
           optVoted={optVoted}
         />
+      </div>
+
+      <div className="poll-infor">
+        <div className="poll-msg">
+          {pollVoted && `You voted ${optionVote} option!`}
+        </div>
+        <div className="total-user-voted">
+          Total user voted {votes.length}/{Object.values(users).length}
+        </div>
+        <div className="vote-space">
+          <div className="percent-voted">
+            First option voted {firstVotePercent}%
+          </div>
+          <div className="percent-voted">
+            Second option voted {100 - firstVotePercent}%
+          </div>
+        </div>
       </div>
     </div>
   );
