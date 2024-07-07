@@ -1,4 +1,3 @@
-import { Menu } from "antd";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./headers.css";
@@ -23,22 +22,7 @@ export default function Headers({ children }) {
 
   const dispatch = useDispatch();
 
-  const items = [
-    {
-      label: "Home",
-      key: "/questions",
-    },
-    {
-      label: "Leaderboard",
-      key: "/leaderboard",
-    },
-    {
-      label: "New",
-      key: "/new-poll",
-    },
-  ];
-
-  const onClick = ({ key }) => {
+  const onClick = (key) => {
     setTab(key);
     navigate(key);
   };
@@ -51,12 +35,26 @@ export default function Headers({ children }) {
   return (
     <>
       <div className="header-poll">
-        <Menu
-          onClick={onClick}
-          selectedKeys={tab}
-          mode="horizontal"
-          items={items}
-        />
+        <div className="menu">
+          <div
+            className={`menu-item ${tab === "/questions" && "item-selected"}`}
+            onClick={() => onClick("/questions")}
+          >
+            Home
+          </div>
+          <div
+            className={`menu-item ${tab === "/leaderboard" && "item-selected"}`}
+            onClick={() => onClick("/leaderboard")}
+          >
+            Leaderboard
+          </div>
+          <div
+            className={`menu-item ${tab === "/new-poll" && "item-selected"}`}
+            onClick={() => onClick("/new-poll")}
+          >
+            New
+          </div>
+        </div>
 
         <div className="header-right">
           <div className="user-infor">

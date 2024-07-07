@@ -1,14 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { IMAGES } from "../../constants/imgages";
-import { Button, Form, Input } from "antd";
 import "./login-page.css";
 import { _getUsers } from "../../_DATA";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import InputForm from "../../components/InputForm/InputForm";
 
 export default function LoginPage() {
   const [users, setUser] = useState({});
   const [showMsgErr, setShowMsgErr] = useState(false);
   const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
 
   const getUser = useCallback(async () => {
     const userRes = await _getUsers();
@@ -20,7 +22,7 @@ export default function LoginPage() {
   }, []);
 
   const handleLogin = (values) => {
-    const { password, username } = values;
+    const { Password: password, Username: username } = values;
 
     const userLogin = users[username];
     if (!userLogin) {
@@ -41,36 +43,25 @@ export default function LoginPage() {
     <div className="login-page">
       <h1>Employee Rolls</h1>
       <img src={IMAGES.LOGIN} alt="" width={400} />
+
       <div className="login-space">
         <h2>Log In</h2>
         <div className="error">
           {showMsgErr && "Username or Password is not correct!"}
         </div>
-        <Form name="basic" style={{ width: 600 }} onFinish={handleLogin}>
-          <Form.Item
-            label="Username"
-            name="username"
-            className="field-space"
-            rules={[{ required: true, message: "Please input your username!" }]}
-          >
-            <Input />
-          </Form.Item>
 
-          <Form.Item
+        <form onSubmit={handleSubmit(handleLogin)}>
+          <InputForm label="Username" required={true} register={register} />
+          <InputForm
             label="Password"
-            name="password"
-            className="field-space"
-            rules={[{ required: true, message: "Please input your password!" }]}
-          >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Login
-            </Button>
-          </Form.Item>
-        </Form>
+            required={true}
+            register={register}
+            password={true}
+          />
+          <button className="btn btn-primary" type="submit">
+            Login
+          </button>
+        </form>
       </div>
     </div>
   );

@@ -27,3 +27,12 @@
   font-size: 12px;
   align-self: flex-start;
 }
+
+table {
+  width: 100%;
+  padding: 20px;
+}
+
+table td {
+  padding-top: 10px;
+}

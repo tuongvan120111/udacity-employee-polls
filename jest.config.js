@@ -16,5 +16,4 @@ module.exports = {
   },
   collectCoverageFrom: ["<rootDir>/src/**/*.js"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
-  transformIgnorePatterns: ["/node_modules/(?!antd)"],
 };

@@ -23,6 +23,7 @@
 
 .user-infor label {
   font-weight: 500;
+  margin-left: 8px;
 }
 
 .logout {
@@ -39,4 +40,34 @@
   background-color: #82b4f9;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.menu {
+  line-height: 46px;
+  border: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.menu-item {
+  position: relative;
+  display: inline-block;
+  vertical-align: bottom;
+  padding-inline: 16px;
+  opacity: 1;
+  order: 0;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  color: #1677ff;
+}
+
+.item-selected {
+  color: #1677ff;
+  background-color: transparent;
+  border-bottom: 1px solid #1677ff;
 }

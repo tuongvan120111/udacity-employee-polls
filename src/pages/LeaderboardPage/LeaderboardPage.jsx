@@ -1,4 +1,3 @@
-import { Table } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUsers } from "../../utils/selection";
@@ -13,38 +12,38 @@ export default function LeaderboardPage() {
 
   useLoadingInitial(dispatch);
 
-  const columns = [
-    {
-      title: "Users",
-      dataIndex: "name",
-      key: "name",
-      render: (_, record) => {
-        return (
-          <div className="user">
-            <img src={record.img} alt="" width={40} />
-            <div className="user-field">
-              <div className="user-name">{record.name}</div>
-              <div className="name">{record.user}</div>
-            </div>
-          </div>
-        );
-      },
-    },
-    {
-      title: "Answered",
-      dataIndex: "answered",
-      key: "answered",
-    },
-    {
-      title: "Created",
-      dataIndex: "created",
-      key: "created",
-    },
-  ];
-
   return (
     <div className="leader-board">
-      <Table dataSource={leaderBoard} columns={columns} pagination={false} />
+      <table>
+        <tr>
+          <th className="user">Users</th>
+          <th className="answered">Answered</th>
+          <th className="created">Created</th>
+        </tr>
+
+        {leaderBoard.map((item) => {
+          return (
+            <tr key={item.user}>
+              <td>
+                <div className="user">
+                  <img src={item.img} alt="" width={40} />
+                  <div className="user-field">
+                    <div className="user-name">{item.name}</div>
+                    <div className="name">{item.user}</div>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div className="answered">{item.answered}</div>
+              </td>
+              <td>
+                <div className="created">{item.created}</div>
+              </td>
+            </tr>
+          );
+        })}
+      </table>
     </div>
   );
 }

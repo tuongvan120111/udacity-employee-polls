@@ -3,7 +3,7 @@ export const selectHomeState = (state) => state.homeState;
 export const selectUserId = (state) => state.userId || "";
 export const selectShowMsgErr = (state) => state.isShowMsgErr;
 export const selectQuestion = (state, id) => state.question[id];
-export const selectShowPopup = (state) => state.isShowPopup;
+export const selectShowPopup = (state) => state?.isShowPopup || false;
 export const selectCurUser = (state) => {
   const userId = state?.userId;
   if (!state?.user) {

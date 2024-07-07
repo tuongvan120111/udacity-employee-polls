@@ -1,6 +1,5 @@
 import React from "react";
 import "./question-content.css";
-import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 
 export default function QuestionContent({ owner, timeCreated, id }) {
@@ -18,9 +17,9 @@ export default function QuestionContent({ owner, timeCreated, id }) {
         </div>
         <div>{timeCreated}</div>
       </div>
-      <Button className="question-show" onClick={handleShowPoll}>
+      <button className="btn question-show" onClick={handleShowPoll}>
         Show
-      </Button>
+      </button>
     </div>
   );
 }
