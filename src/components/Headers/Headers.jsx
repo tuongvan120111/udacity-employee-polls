@@ -3,7 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./headers.css";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../slice/employee-poll-slice";
-import { selectCurUser } from "../../utils/selection";
+import { selectUser, selectUserId } from "../../utils/selection";
+import { USER_ID } from "../../constants/constant";
 
 export default function Headers({ children }) {
   const navigate = useNavigate();
@@ -11,12 +12,15 @@ export default function Headers({ children }) {
 
   const [tab, setTab] = useState("/questions");
 
-  const currenUser = useSelector(selectCurUser);
+  const crtUser = useSelector(selectUserId);
+  const currenUser = useSelector((state) => selectUser(state, crtUser));
 
   useEffect(() => {
-    const isHomePage = history.pathname === "/";
+    const isHomePage = history.pathname.includes("questions");
     if (isHomePage) {
       setTab("/questions");
+    } else {
+      setTab(history.pathname);
     }
   });
 
@@ -29,6 +33,7 @@ export default function Headers({ children }) {
 
   const handleLogout = () => {
     dispatch(logout());
+    localStorage.removeItem(USER_ID);
     navigate("/login");
   };
 

@@ -1,5 +1,5 @@
 import {
-  selectCurUser,
+  selectUser,
   selectHomeState,
   selectPollVoted,
   selectQuestion,
@@ -73,7 +73,7 @@ describe("Selection Store", () => {
   });
 
   it("Should get question", () => {
-    const qst = selectQuestion({ question }, "8xf0y6ziyjabvozdd253nd");
+    const qst = selectQuestion({ question, user }, "8xf0y6ziyjabvozdd253nd");
     const expectedQst = question["8xf0y6ziyjabvozdd253nd"];
     expect(qst.author).toEqual(expectedQst.author);
     expect(qst.optionOne.text).toEqual(expectedQst.optionOne.text);
@@ -86,7 +86,7 @@ describe("Selection Store", () => {
   });
 
   it("Should get current user", () => {
-    const curUser = selectCurUser({ user, userId: user.sarahedo.id });
+    const curUser = selectUser({ user, userId: user.sarahedo.id }, "sarahedo");
     expect(curUser.id).toEqual(user.sarahedo.id);
     expect(curUser.name).toEqual(user.sarahedo.name);
     expect(curUser.password).toEqual(user.sarahedo.password);

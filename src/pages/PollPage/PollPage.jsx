@@ -1,15 +1,17 @@
 import React from "react";
-import { IMAGES } from "../../constants/imgages";
 import { useParams } from "react-router-dom";
 import "./poll-page.css";
 import AnswerArea from "../../components/AnswerArea/AnswerArea";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectCurUser,
+  selectUser,
+  selectPollSaveErr,
   selectPollVoted,
   selectQuestion,
+  selectQuestionOnwer,
   selectUsers,
   selectVoteOpt,
+  selectUserId,
 } from "../../utils/selection";
 import { saveAnswer } from "../../slice/employee-poll-slice";
 
@@ -17,6 +19,8 @@ export default function PollPage() {
   const dispatch = useDispatch();
   const { question_id } = useParams();
   const question = useSelector((state) => selectQuestion(state, question_id));
+  const ownser = useSelector((state) => selectUser(state, question.author));
+  const saveAnswerErr = useSelector(selectPollSaveErr);
 
   const { optionOne, optionTwo } = question;
   const votes = optionOne.votes.concat(optionTwo.votes);
@@ -26,7 +30,8 @@ export default function PollPage() {
     selectVoteOpt(state, question_id, pollVoted)
   );
 
-  const user = useSelector((state) => selectCurUser(state));
+  const crtUser = useSelector(selectUserId);
+  const user = useSelector((state) => selectUser(state, crtUser));
   const handleVotePoll = (isFirstOp) => {
     dispatch(
       saveAnswer({
@@ -50,10 +55,13 @@ export default function PollPage() {
 
   return (
     <div className="poll-page">
-      <h1>Poll by {user.name}</h1>
-      <img src={IMAGES.LOGIN} alt="" />
+      <h1>Poll by {ownser.name}</h1>
+      <img src={ownser.avatarURL} alt="" />
       <div className="question-content">
         <h2>Would You Rather </h2>
+        <div className="error">
+          {saveAnswerErr && "Username or Password is not correct!"}
+        </div>
         <AnswerArea
           opt1={optionOne.text}
           opt2={optionTwo.text}

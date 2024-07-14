@@ -5,6 +5,7 @@ import { _getUsers } from "../../_DATA";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import InputForm from "../../components/InputForm/InputForm";
+import { USER_ID } from "../../constants/constant";
 
 export default function LoginPage() {
   const [users, setUser] = useState({});
@@ -36,7 +37,8 @@ export default function LoginPage() {
       return;
     }
 
-    navigate("/", { state: { users, userId: username } });
+    localStorage.setItem(USER_ID, username);
+    navigate("/");
   };
 
   return (

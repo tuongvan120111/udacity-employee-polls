@@ -4,6 +4,14 @@
   /* padding: 15px; */
   width: 600px;
 }
+.answer .btn {
+  border-top: 1px solid #4d4d4d;
+}
+
+.answer .btn:disabled {
+  background-color: unset;
+  color: #4d4d4d;
+}
 
 .option {
   padding: 10px;
@@ -18,5 +26,6 @@
 }
 
 .voted:disabled {
-  background-color: #a0b8da;
+  background-color: #33cc33 !important;
+  color: #fffbf5 !important;
 }

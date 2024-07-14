@@ -1,43 +1,88 @@
-# Getting Started with Create React App
+# Employee polls Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is project pratice for udacity course with redux and other library testing. The project describe how to create a poll, the way to answer one of two option, login, the score for each good question of member.
+Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://reactjs.org/docs/create-a-new-react-app.html) to bootstrap the project.
 
-## Available Scripts
+- install all project dependencies with `npm install`
+- start the development server with `npm start`
 
-In the project directory, you can run:
+```bash
+├── README.md - This file.
+├── package.json # npm package manager file. It's unlikely that you'll need to modify this.
+├── babel.config.js
+├── jest.config.js # that convert each file like css for run test
+├── jest.setup.js # jest dom test environment
+├── public
+│   ├── favicon.ico # Default react Icon.
+│   └── index.html # DO NOT MODIFY
+└── src
+    ├── App.css # Styles for your app. Feel free to customize this as you desire.
+    ├── App.js # This is the root of your app. Contains static HTML right now.
+    ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
+    ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
+    ├── _DATA.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
+    ├── index.css # Global styles. You probably won't need to change anything here.
+    ├── index.js # You should not need to modify this file. It is used for DOM rendering only.
+    ├── router.js # Router is here
+    ├── components # Pure component
+    ├── constants # contain hard code variable
+    ├── hook # hook custome
+    ├── pages # main pages
+    ├── slice # Where reducer, actions defince
+    ├── store # Router is here
+    ├── tests # Test write here
+    └── utils # Pure function
+```
 
-### `npm start`
+## Backend API
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [`_getUsers`](#_getUsers)
+- [`_getQuestions`](#_getQuestions)
+- [`_saveQuestion`](#_saveQuestion)
+- [`_saveQuestionAnswer`](#_saveQuestionAnswer)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### `_getUsers`
 
-### `npm test`
+Method Signature:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```js
+_getUsers();
+```
 
-### `npm run build`
+- Returns a Promise which resolves to a JSON object containing a collection of user objects.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `_getQuestions`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Method Signature:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```js
+_getQuestions();
+```
 
-### `npm run eject`
+- Returns a Promise which resolves to a JSON object containing a collection of user objects.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### `_saveQuestion`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Method Signature:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```js
+_saveQuestion(question);
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- question: `<object>` containing at optionOneText, optionTwoText, author
+- Returns a Promise which resolves to a JSON object containing a collection of a new question.
+
+### `_saveQuestionAnswer`
+
+Method Signature:
+
+```js
+_saveQuestionAnswer(question);
+```
+
+- question: `<object>` containing at authedUser, qid, answer
+- qid is generate by other function automationly
+- Returns a Promise which resolves to a save question action success.
 
 ## Learn More
 

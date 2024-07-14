@@ -10,6 +10,7 @@ export default function InputForm({ label, register, required, password }) {
       </label>
       <input
         {...register(label, { required })}
+        id={label}
         type={!password ? "text" : "password"}
       />
     </div>

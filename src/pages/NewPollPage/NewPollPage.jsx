@@ -3,7 +3,7 @@ import "./new-poll.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoadingInitial } from "../../hook/stopLoadingHook";
 import { saveQuestion } from "../../slice/employee-poll-slice";
-import { selectUserId } from "../../utils/selection";
+import { selectPollSaveErr, selectUserId } from "../../utils/selection";
 import { useForm } from "react-hook-form";
 import InputForm from "../../components/InputForm/InputForm";
 
@@ -11,8 +11,9 @@ export default function NewPollPage() {
   const dispatch = useDispatch();
   useLoadingInitial(dispatch);
   const userId = useSelector(selectUserId);
+  const pollSaveErr = useSelector(selectPollSaveErr);
 
-  const onFinish = ({
+  const onFinish = async ({
     FirstOption: firstOption,
     SecondOption: secondOption,
   }) => {
@@ -32,6 +33,9 @@ export default function NewPollPage() {
       <h1>Would You Rather</h1>
       <div className="description-poll">Create Your Own Poll</div>
       <div className="poll-option">
+        <div className="error">
+          {pollSaveErr && "Something went wrong while save poll!"}
+        </div>
         <form onSubmit={handleSubmit(onFinish)}>
           <InputForm label="FirstOption" required={true} register={register} />
           <InputForm label="SecondOption" required={true} register={register} />

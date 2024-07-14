@@ -8,6 +8,7 @@ import {
   _saveQuestionAnswer,
 } from "../_DATA";
 import { handleQuestion } from "../utils/handleQuestion";
+import { getLeaderBoardData } from "../utils/get-leader-board-data";
 
 export const getQuestion = createAsyncThunk(
   "employeePoll/getQuestion",
@@ -27,6 +28,8 @@ export const saveAnswer = createAsyncThunk(
 
       return { users, questions };
     }
+
+    return Promise.reject(false);
   }
 );
 
@@ -44,8 +47,9 @@ export const employeePollSlice = createSlice({
   reducers: {
     login(state, { payload = {} }) {
       const { userId, users } = payload;
-      state.userId = userId;
-      state.user = users;
+      state.userId = userId || "";
+      state.user = users || {};
+      state.leaderBoard = getLeaderBoardData(users || "");
     },
     logout(state, action) {
       state.userId = "";
@@ -61,6 +65,36 @@ export const employeePollSlice = createSlice({
     },
     startLoading(state, action) {
       state.isLoading = true;
+    },
+    restartLeaderboard(state, action) {
+      state.leaderBoard = getLeaderBoardData(state.user || "");
+    },
+    handleSortUp(state, { payload = "" }) {
+      let property = "answered";
+
+      if (payload !== "Answered") {
+        property = "created";
+      }
+
+      const item = JSON.parse(JSON.stringify(state.leaderBoard));
+
+      const itemSort = item.sort(
+        (first, second) => second[property] - first[property]
+      );
+      state.leaderBoard = itemSort;
+    },
+    handleSortDown(state, { payload = "" }) {
+      let property = "answered";
+
+      if (payload !== "Answered") {
+        property = "created";
+      }
+
+      const item = JSON.parse(JSON.stringify(state.leaderBoard));
+      const itemSort = item.sort(
+        (first, second) => first[property] - second[property]
+      );
+      state.leaderBoard = itemSort;
     },
   },
   extraReducers(build) {
@@ -96,9 +130,11 @@ export const employeePollSlice = createSlice({
 
         state.isShowPopup = true;
         state.isLoading = false;
+        state.saveAnswerErr = false;
       })
       .addCase(saveAnswer.rejected, (state, action) => {
         state.isLoading = false;
+        state.saveAnswerErr = true;
       })
 
       // saveQuestion
@@ -108,9 +144,15 @@ export const employeePollSlice = createSlice({
       .addCase(saveQuestion.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isShowPopup = true;
+        state.question = {
+          ...state.questions,
+          [payload?.id]: payload,
+        };
+        state.pollSaveErr = false;
       })
       .addCase(saveQuestion.rejected, (state, action) => {
         state.isLoading = false;
+        state.pollSaveErr = true;
       });
   },
 });
@@ -122,6 +164,9 @@ export const {
   startLoading,
   showPopup,
   closePopup,
+  restartLeaderboard,
+  handleSortDown,
+  handleSortUp,
 } = employeePollSlice.actions;
 
 export const employeePollReducer = employeePollSlice.reducer;

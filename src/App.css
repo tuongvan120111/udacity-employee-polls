@@ -91,3 +91,8 @@ form {
   flex-direction: column;
   gap: 20px;
 }
+
+.error {
+  color: red;
+  height: 24px;
+}

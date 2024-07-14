@@ -2,7 +2,7 @@ import { convertDate } from "./date-time";
 
 export const handleQuestion = (state, payload) => {
   const totalUser = Object.keys(state.user || {}).length;
-  const question = Object.values(payload).map((item) => {
+  const question = Object.values(payload || {}).map((item) => {
     const firstOption = item.optionOne;
     const secondOption = item.optionTwo;
     const totalVote = firstOption.votes.length + secondOption.votes.length;

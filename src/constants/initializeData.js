@@ -25,4 +25,7 @@ export const INITIALIZE_DATA_SPLICE = {
     new: [],
     done: [],
   },
+  leaderBoard: [],
+  pollSaveErr: false,
+  saveAnswerErr: false,
 };

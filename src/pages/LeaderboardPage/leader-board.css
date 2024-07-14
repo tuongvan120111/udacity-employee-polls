@@ -12,6 +12,30 @@
   margin-right: 8px;
 }
 
+.answered span {
+  margin-left: 8px;
+}
+
+.answered span img {
+  cursor: pointer;
+}
+
+.answered span img:hover {
+  background-color: #a2a195;
+}
+
+.created span {
+  margin-left: 8px;
+}
+
+.created span img {
+  cursor: pointer;
+}
+
+.created span img:hover {
+  background-color: #a2a195;
+}
+
 .user-field {
   justify-content: flex-start;
   display: flex;

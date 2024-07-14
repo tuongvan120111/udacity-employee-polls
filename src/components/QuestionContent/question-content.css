@@ -9,7 +9,7 @@
 
 .question-infor {
   border-bottom: 1px solid #dddddd;
-  padding: 10px 10px 32px;
+  padding: 10px;
 }
 
 .question-owner {
@@ -20,6 +20,12 @@
 
 .question-show {
   margin: 10px;
+  color: #1677ff;
+  border-color: #1677ff;
+}
+
+.voted-poll {
+  height: 24px;
+  margin-top: 8px;
   color: #33cc33;
-  border-color: #33cc33;
 }

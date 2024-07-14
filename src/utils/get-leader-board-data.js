@@ -16,3 +16,17 @@ export const getLeaderBoardData = (req) => {
     };
   });
 };
+
+export const sortingItem = (type, isDataUp) => {
+  let property = "answered";
+
+  if (type !== "Answered") {
+    property = "created";
+  }
+
+  if (isDataUp) {
+    return (first, second) => second[property] - first[property];
+  } else {
+    return (first, second) => first[property] - second[property];
+  }
+};

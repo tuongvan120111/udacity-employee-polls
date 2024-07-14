@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { employeePollReducer } from "../slice/employee-poll-slice";
 
-const logger = (store) => (next) => (action) => {
+export const logger = (store) => (next) => (action) => {
   console.group(action.type);
   console.info("dispatching", action);
   let result = next(action);

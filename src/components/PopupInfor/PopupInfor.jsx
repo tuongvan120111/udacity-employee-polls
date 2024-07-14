@@ -30,7 +30,7 @@ export default function PopupInfor() {
               <p>Action success!</p>
             </span>
             <button
-              class="btn btn-secondary"
+              className="btn btn-secondary"
               type="button"
               onClick={handleClosePopup}
             >

@@ -4,5 +4,5 @@ export const getLoginState = (location) => {
     return undefined;
   }
 
-  return JSON.parse(JSON.stringify(state));
+  return JSON.parse(JSON.stringify(state)) || { userId: "" };
 };

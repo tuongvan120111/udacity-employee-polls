@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./question-field.css";
 import QuestionContent from "../QuestionContent/QuestionContent";
 
@@ -14,6 +14,7 @@ export default function QuestionField({ title, questions = [] }) {
               owner={item.owner}
               timeCreated={item.timeCreated}
               key={item.id}
+              voted={item.isCurUserVote}
             />
           );
         })}

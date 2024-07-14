@@ -1,25 +1,31 @@
 import React, { memo, useEffect, useState } from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Headers from "../Headers/Headers";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../slice/employee-poll-slice";
 import "./private-route.css";
-import { getLoginState } from "../../utils/state-login";
 import { selectUserId } from "../../utils/selection";
 import PopupInfor from "../PopupInfor/PopupInfor";
+import { USER_ID } from "../../constants/constant";
+import { _getUsers } from "../../_DATA";
 
 const PrivateRoutes = memo(() => {
-  const location = useLocation();
-  const loginState = getLoginState(location);
   const dispatch = useDispatch();
   const userIdState = useSelector(selectUserId);
   const selectLoading = (state) => state?.isLoading || false;
   const isLoading = useSelector(selectLoading);
-  const [isLogin] = useState(!!loginState?.userId || !!userIdState);
+
   useEffect(() => {
-    dispatch(login(loginState));
-    location.state = {};
-  }, [isLogin]);
+    _getUsers().then((users) => {
+      const userId = localStorage.getItem(USER_ID);
+      const loginState = { userId, users };
+      dispatch(login(loginState));
+    });
+  }, []);
+
+  const [isLogin] = useState(() => {
+    return userIdState || localStorage.getItem(USER_ID);
+  });
 
   return (
     <>
