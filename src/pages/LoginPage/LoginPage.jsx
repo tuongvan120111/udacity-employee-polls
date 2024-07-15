@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { IMAGES } from "../../constants/imgages";
 import "./login-page.css";
 import { _getUsers } from "../../_DATA";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import InputForm from "../../components/InputForm/InputForm";
 import { USER_ID } from "../../constants/constant";
@@ -12,6 +12,8 @@ export default function LoginPage() {
   const [showMsgErr, setShowMsgErr] = useState(false);
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
+
+  const { state: locationState } = useLocation();
 
   const getUser = useCallback(async () => {
     const userRes = await _getUsers();
@@ -38,7 +40,13 @@ export default function LoginPage() {
     }
 
     localStorage.setItem(USER_ID, username);
-    navigate("/");
+
+    if (locationState) {
+      const { redirectTo } = locationState;
+      navigate(`${redirectTo.pathname}${redirectTo.search}`);
+    } else {
+      navigate("/");
+    }
   };
 
   return (

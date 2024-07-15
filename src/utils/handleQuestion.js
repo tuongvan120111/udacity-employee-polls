@@ -19,5 +19,7 @@ export const handleQuestion = (state, payload) => {
 
   const doneQues = question.filter((el) => el.isDone);
   const newQues = question.filter((el) => !el.isDone);
+  doneQues.sort((left, right) => left.isCurUserVote - right.isCurUserVote);
+  newQues.sort((left, right) => left.isCurUserVote - right.isCurUserVote);
   return { doneQues, newQues };
 };

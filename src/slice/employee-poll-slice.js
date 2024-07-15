@@ -46,8 +46,12 @@ export const employeePollSlice = createSlice({
   initialState: INITIALIZE_DATA_SPLICE,
   reducers: {
     login(state, { payload = {} }) {
-      const { userId, users } = payload;
+      const { userId, users, question } = payload;
       state.userId = userId || "";
+      state.question = question;
+      const getQuestion = handleQuestion(state, question);
+      state.homeState.done = getQuestion.doneQues;
+      state.homeState.new = getQuestion.newQues;
       state.user = users || {};
       state.leaderBoard = getLeaderBoardData(users || "");
     },

@@ -119,6 +119,16 @@ describe("Unit test Employee Poll slice", () => {
       expect(Object.values(store.getState().question).length).toEqual(0);
       expect(store.getState().pollSaveErr).toEqual(true);
     });
+
+    test("Should return error when data pass into is wrong", async () => {
+      _saveQuestion.mockRejectedValue(false);
+
+      await act(async () => {
+        await store.dispatch(saveQuestion("incorrect data"));
+      });
+      expect(Object.values(store.getState().question).length).toEqual(0);
+      expect(store.getState().pollSaveErr).toEqual(true);
+    });
   });
 
   describe("Save Question Answer", () => {
@@ -152,6 +162,17 @@ describe("Unit test Employee Poll slice", () => {
             answer: "optionOne",
           })
         );
+      });
+
+      const state = store.getState();
+      expect(state.saveAnswerErr).toEqual(true);
+    });
+
+    test("Should return error question when data pass into is wrong", async () => {
+      _saveQuestionAnswer.mockReturnValue(false);
+
+      await act(async () => {
+        await store.dispatch(saveAnswer("incorrect data"));
       });
 
       const state = store.getState();

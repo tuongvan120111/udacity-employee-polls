@@ -19,7 +19,6 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <NotFound />,
     children: [
       {
         path: "/",
@@ -34,5 +33,7 @@ export const router = createBrowserRouter([
       { path: "questions/:question_id", element: <PollPage /> },
     ],
   },
-  { path: "login", element: <LoginPage /> },
+  { path: "/login", element: <LoginPage /> },
+  { path: "/not-found", element: <NotFound /> },
+  { path: "*", element: <NotFound /> },
 ]);

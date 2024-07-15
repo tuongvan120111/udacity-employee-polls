@@ -4,10 +4,12 @@ import React from "react";
 import { _getUsers } from "../../_DATA";
 
 const mockedUsedNavigate = jest.fn();
+const mockLocatopn = jest.fn();
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockedUsedNavigate,
+  useLocation: () => mockLocatopn,
 }));
 
 jest.mock("../../_DATA", () => {

@@ -2,17 +2,14 @@ import React from "react";
 import "./home.css";
 import QuestionField from "../../components/QuestionField/QuestionField";
 import { selectHomeState } from "../../utils/selection";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getQuestion } from "../../slice/employee-poll-slice";
+import { useLoadingInitial } from "../../hook/stopLoadingHook";
 
 export default function HomePage() {
   const homeState = useSelector(selectHomeState);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getQuestion());
-  }, []);
+  useLoadingInitial(dispatch);
 
   return (
     <div className="home-page">

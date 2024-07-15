@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import "./poll-page.css";
 import AnswerArea from "../../components/AnswerArea/AnswerArea";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,22 +8,38 @@ import {
   selectPollSaveErr,
   selectPollVoted,
   selectQuestion,
-  selectQuestionOnwer,
   selectUsers,
   selectVoteOpt,
   selectUserId,
 } from "../../utils/selection";
 import { saveAnswer } from "../../slice/employee-poll-slice";
+import { useLoadingInitial } from "../../hook/stopLoadingHook";
 
 export default function PollPage() {
   const dispatch = useDispatch();
+
   const { question_id } = useParams();
   const question = useSelector((state) => selectQuestion(state, question_id));
-  const ownser = useSelector((state) => selectUser(state, question.author));
+  useLoadingInitial(dispatch);
+
+  return (
+    <>
+      {question ? (
+        <MainPollPage question_id={question_id} question={question} />
+      ) : (
+        <Navigate to={"/not-found"} replace />
+      )}
+    </>
+  );
+}
+
+const MainPollPage = ({ question_id, question }) => {
+  const dispatch = useDispatch();
+  const ownser = useSelector((state) => selectUser(state, question?.author));
   const saveAnswerErr = useSelector(selectPollSaveErr);
 
-  const { optionOne, optionTwo } = question;
-  const votes = optionOne.votes.concat(optionTwo.votes);
+  const votes =
+    question?.optionOne?.votes?.concat(question?.optionTwo?.votes || []) || [];
 
   const pollVoted = useSelector((state) => selectPollVoted(state, question_id));
   const optVoted = useSelector((state) =>
@@ -50,21 +66,21 @@ export default function PollPage() {
 
   const users = useSelector(selectUsers);
   const firstVotePercent = Math.round(
-    (optionOne.votes.length / votes.length) * 100
+    ((question?.optionOne?.votes?.length || 0) / votes.length) * 100
   );
 
   return (
     <div className="poll-page">
-      <h1>Poll by {ownser.name}</h1>
-      <img src={ownser.avatarURL} alt="" />
+      <h1>Poll by {ownser?.name}</h1>
+      <img src={ownser?.avatarURL} alt="" />
       <div className="question-content">
         <h2>Would You Rather </h2>
         <div className="error">
           {saveAnswerErr && "Username or Password is not correct!"}
         </div>
         <AnswerArea
-          opt1={optionOne.text}
-          opt2={optionTwo.text}
+          opt1={question?.optionOne?.text}
+          opt2={question?.optionTwo?.text}
           handleVotePoll={handleVotePoll}
           disabled={pollVoted}
           optVoted={optVoted}
@@ -89,4 +105,4 @@ export default function PollPage() {
       </div>
     </div>
   );
-}
+};
